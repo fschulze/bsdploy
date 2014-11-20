@@ -7,6 +7,7 @@ Its main design goal is to lower the barrier to *repeatable jail setups*.
 
 Instead of performing updates on production hosts you are encouraged to update the *description* of your setup, test it against an identically configured staging scenario until it works as expected and then apply the updated configuration to production with confidence.
 
+https://etherpad.mozilla.org/ep14bsdploy
 
 Main Features
 -------------
