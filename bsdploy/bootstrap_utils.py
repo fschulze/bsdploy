@@ -71,7 +71,18 @@ class BootstrapFile(object):
     def template_from_file(self):
         from ploy_ansible import inject_ansible_paths
         inject_ansible_paths()
-        from ansible.utils.template import template_from_file
+        try:
+            from ansible.utils.template import template_from_file
+        except ImportError:
+            from ansible.parsing.dataloader import DataLoader
+            from ansible.template import Templar
+            loader = DataLoader()
+
+            def template_from_file(basedir, path, variables, vault_password=None):
+                templar = Templar(loader, variables=variables)
+                with open(path) as f:
+                    template = f.read()
+                return templar.template(template)
         return template_from_file
 
     def open(self, context):
